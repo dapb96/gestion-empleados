@@ -46,10 +46,10 @@ public class EmployeeController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> deleteEmployee(@RequestBody DepartmentEmployeeRequestDto requestDto) {
+    @DeleteMapping("/{employeeId}/by-department/{departmentId}")
+    public ResponseEntity<Void> deleteEmployee(@PathVariable Long employeeId, @PathVariable Long departmentId) {
         try {
-            employeeService.deleteEmployee(requestDto);
+            employeeService.deleteEmployee(new DepartmentEmployeeRequestDto(employeeId, departmentId));
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
