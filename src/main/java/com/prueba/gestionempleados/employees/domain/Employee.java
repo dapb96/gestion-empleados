@@ -33,7 +33,7 @@ public class Employee {
                 employeeJPA.getId(),
                 employeeJPA.getName(),
                 employeeJPA.getLastName(),
-                Department.fromEntity(employeeJPA.getDepartmentJpaEntity())
+                Department.fromEntity(employeeJPA.getDepartment())
         );
     }
 

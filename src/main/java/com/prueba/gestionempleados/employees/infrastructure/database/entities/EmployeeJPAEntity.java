@@ -22,7 +22,7 @@ public class EmployeeJPAEntity {
     private String lastName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", nullable = false)
-    private DepartmentJpaEntity departmentJpaEntity;
+    @JoinColumn(name = "departmentId", nullable = false)
+    private DepartmentJpaEntity department;
 
 }
