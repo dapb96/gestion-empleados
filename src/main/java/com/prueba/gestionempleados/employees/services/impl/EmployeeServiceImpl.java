@@ -80,7 +80,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee updateEmployee(DepartmentEmployeeRequestDto requestDto, UpdateEmployeeRequestDto updateRequestDto) {
         EmployeeJPAEntity empleadoJpaEntity = employeeRepository.findBydepartment_IdAndId(requestDto.getDepartmentId(), requestDto.getEmployeeId())
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró el empleado con ID " + requestDto.getEmployeeId() + " en el departamento con ID " + requestDto.getDepartmentId()));
-        return Employee.fromJpaEntity(empleadoJpaEntity);
+        empleadoJpaEntity.setName(updateRequestDto.getName());
+        empleadoJpaEntity.setLastName(updateRequestDto.getLastName());
+        return Employee.fromJpaEntity(employeeRepository.save(empleadoJpaEntity));
     }
 
     @Override

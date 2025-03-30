@@ -56,8 +56,8 @@ public class EmployeeController {
         }
     }
 
-    @PutMapping("/{departmentId}/{empleadoId}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable Long departmentId, @PathVariable Long employeeId, @RequestBody UpdateEmployeeRequestDto requestDto) {
+    @PutMapping("/{departmentId}/{employeeId}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable long departmentId, @PathVariable long employeeId, @RequestBody UpdateEmployeeRequestDto requestDto) {
         try {
             Employee empleadoActualizado = employeeService.updateEmployee(new DepartmentEmployeeRequestDto(employeeId,departmentId), requestDto);
             return new ResponseEntity<>(empleadoActualizado, HttpStatus.OK);
@@ -66,7 +66,7 @@ public class EmployeeController {
         }
     }
 
-    @PatchMapping("/{empleadoId}/departamento/{departmentId}")
+    @PatchMapping("/department")
     public ResponseEntity<Employee> updateDepartmentEmployee(@RequestBody DepartmentEmployeeRequestDto requestDto) {
         try {
             Employee empleadoActualizado = employeeService.updateDepartmentEmployee(requestDto);
