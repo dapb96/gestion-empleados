@@ -10,8 +10,8 @@ import java.util.Optional;
 @Repository
 public interface EmployeeRepository extends JpaRepository<EmployeeJPAEntity, Long> {
 
-    List<EmployeeJPAEntity> findBydepartmentId(Long departmentId);
+    List<EmployeeJPAEntity> findBydepartment_Id(Long departmentId);
 
-    Optional<EmployeeJPAEntity> findBydepartmentIdAndId(Long departmentId, Long employeeId);
+    Optional<EmployeeJPAEntity> findBydepartment_IdAndId(Long departmentId, Long employeeId);
 
 }

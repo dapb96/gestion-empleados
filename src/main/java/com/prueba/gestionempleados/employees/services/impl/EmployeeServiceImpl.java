@@ -23,14 +23,10 @@ import java.util.stream.Collectors;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final EmployeeRepository employeeRepository;
-    private final DepartmentRepository departmentRepository;
-
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository) {
-        this.departmentRepository = departmentRepository;
-        this.employeeRepository = employeeRepository;
-    }
+    private EmployeeRepository employeeRepository;
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
     @Override
     public Employee createEmployee(CreateEmployeeRequestDto requestDto) {
@@ -60,19 +56,19 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new BadRequestException("El ID del departamento es obligatorio para la busqueda de los empleados.");
         }
 
-        return employeeRepository.findBydepartmentId(departmentoId)
+        return employeeRepository.findBydepartment_Id(departmentoId)
                 .stream().map(Employee::fromJpaEntity).collect(Collectors.toList());
     }
 
     @Override
     public Optional<Employee> getEmployeesByDepartment(DepartmentEmployeeRequestDto requestDto) {
-        return employeeRepository.findBydepartmentIdAndId(requestDto.getDepartmentId(), requestDto.getEmployeeId()).map(Employee::fromJpaEntity);
+        return employeeRepository.findBydepartment_IdAndId(requestDto.getDepartmentId(), requestDto.getEmployeeId()).map(Employee::fromJpaEntity);
     }
 
     @Override
     @Transactional
     public void deleteEmployee(DepartmentEmployeeRequestDto requestDto) {
-        Optional<EmployeeJPAEntity> empleadoJpaEntityOptional = employeeRepository.findBydepartmentIdAndId(requestDto.getDepartmentId(), requestDto.getEmployeeId());
+        Optional<EmployeeJPAEntity> empleadoJpaEntityOptional = employeeRepository.findBydepartment_IdAndId(requestDto.getDepartmentId(), requestDto.getEmployeeId());
         empleadoJpaEntityOptional.ifPresent(employeeRepository::delete);
         if (empleadoJpaEntityOptional.isEmpty()) {
             throw new EntityNotFoundException("No se encontró el empleado con ID " + requestDto.getEmployeeId() + " en el departamento con ID " + requestDto.getDepartmentId());
@@ -82,7 +78,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional
     public Employee updateEmployee(DepartmentEmployeeRequestDto requestDto, UpdateEmployeeRequestDto updateRequestDto) {
-        EmployeeJPAEntity empleadoJpaEntity = employeeRepository.findBydepartmentIdAndId(requestDto.getDepartmentId(), requestDto.getEmployeeId())
+        EmployeeJPAEntity empleadoJpaEntity = employeeRepository.findBydepartment_IdAndId(requestDto.getDepartmentId(), requestDto.getEmployeeId())
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró el empleado con ID " + requestDto.getEmployeeId() + " en el departamento con ID " + requestDto.getDepartmentId()));
         return Employee.fromJpaEntity(empleadoJpaEntity);
     }
