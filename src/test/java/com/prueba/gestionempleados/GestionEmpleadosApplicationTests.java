@@ -1,4 +1,4 @@
-package com.prueba.gestion_empleados;
+package com.prueba.gestionempleados;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
