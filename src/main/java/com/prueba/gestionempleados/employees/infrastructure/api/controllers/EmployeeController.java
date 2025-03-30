@@ -47,10 +47,10 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{employeeId}/by-department/{departmentId}")
-    public ResponseEntity<Void> deleteEmployee(@PathVariable Long employeeId, @PathVariable Long departmentId) {
+    public ResponseEntity<String> deleteEmployee(@PathVariable Long employeeId, @PathVariable Long departmentId) {
         try {
             employeeService.deleteEmployee(new DepartmentEmployeeRequestDto(employeeId, departmentId));
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("Se ha borrado con exito.", HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
