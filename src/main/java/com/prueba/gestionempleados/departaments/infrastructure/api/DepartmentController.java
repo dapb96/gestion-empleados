@@ -15,12 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/departments")
 public class DepartmentController {
 
-    private final DepartmentService departmentService;
-
     @Autowired
-    public DepartmentController(DepartmentService departmentService) {
-        this.departmentService = departmentService;
-    }
+    private DepartmentService departmentService;
 
     @PostMapping
     public ResponseEntity<Department> createDepartment(@RequestBody CreateDepartmentDto requestDto) {

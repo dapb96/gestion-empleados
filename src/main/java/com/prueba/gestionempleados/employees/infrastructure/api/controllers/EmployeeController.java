@@ -19,12 +19,8 @@ import java.util.Optional;
 @RequestMapping("/api/employees")
 public class EmployeeController {
 
-    private final EmployeeService employeeService;
-
     @Autowired
-    private EmployeeController (EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
+    private EmployeeService employeeService;
 
     @PostMapping
     public ResponseEntity<Employee> createEmployee(@RequestBody CreateEmployeeRequestDto requestDto) {
